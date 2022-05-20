@@ -39,7 +39,9 @@ public class RealBill implements Bill {
         if(numeroItem[1]>5){
             prezzoTotaleProvvisorio -= scontoProcessoreMenoCaro(itemsOrdered);
         }
-
+        if(numeroItem[2]>10){
+            prezzoTotaleProvvisorio -= regaloMouseMenoCaro(itemsOrdered);
+        }
         return prezzoTotaleProvvisorio;
     }
 
@@ -53,6 +55,16 @@ public class RealBill implements Bill {
         }
         System.out.println(prezzoMinore);
         return 0.5*prezzoMinore;
+    }
+    private double regaloMouseMenoCaro(List<EItem> itemsOrdered){
+        double prezzoMinore = Double.POSITIVE_INFINITY;
+        for (EItem item : itemsOrdered){
+            if(item.getEItemType().toString().equals("MS") 
+            && item.getPrice()<prezzoMinore){
+                prezzoMinore = item.getPrice();
+            }
+        }
+        return prezzoMinore;
     }
 
 }
