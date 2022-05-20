@@ -197,6 +197,67 @@ public class RealBillTest {
         assertEquals(expected, actual, 0.001);
     }
 
+    @Test
+    public void getOrderPrice_regaloPerMinorenneCasuale_DatoTest() throws BillException{
+        EItem[] items = {
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 12.0),
+        };
+
+        date= Calendar.getInstance();
+        date.set(Calendar.YEAR,2008);
+        
+
+        List<EItem> itemsOrdered = createEItemList(items);
+        double actual=0;
+        Calendar discountHours= Calendar.getInstance();
+        discountHours.set(Calendar.HOUR_OF_DAY,18);
+        for(int i = 0; i<20; i++){
+            user = new RealUser(new Long(i), "Davide", date);
+            actual += bill.getOrderPrice(itemsOrdered, user, discountHours);
+        }
+        double expected = 120;
+        assertEquals(expected, actual, 0.001);
+    }
+
+    @Test
+    public void getOrderPrice_regaloPerMinorenneCasuale_NegatoTest() throws BillException{
+        EItem[] items = {
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 12.0),
+        };
+
+        List<EItem> itemsOrdered = createEItemList(items);
+        double actual=0;
+        Calendar discountHours= Calendar.getInstance();
+        discountHours.set(Calendar.HOUR_OF_DAY,18);
+        for(int i = 0; i<20; i++){
+            user = new RealUser(new Long(i), "Davide", date);
+            actual += bill.getOrderPrice(itemsOrdered, user, discountHours);
+        }
+        double expected = 240;
+        assertEquals(expected, actual, 0.001);
+    }
+
+    @Test
+    public void getOrderPrice_regaloPerMinorenneCasuale_ResetRegaliDatiTest() throws BillException{
+        EItem[] items = {
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 12.0),
+        };
+
+        date= Calendar.getInstance();
+        date.set(Calendar.YEAR,2008);
+        
+        List<EItem> itemsOrdered = createEItemList(items);
+        double actual=0;
+        Calendar discountHours= Calendar.getInstance();
+        discountHours.set(Calendar.HOUR_OF_DAY,12);
+        for(int i = 0; i<20; i++){
+            user = new RealUser(new Long(i), "Davide", date);
+            actual += bill.getOrderPrice(itemsOrdered, user, discountHours);
+        }
+        double expected = 240;
+        assertEquals(expected, actual, 0.001);
+    }
+
     private List<EItem> createEItemList(EItem[] items) {
         List<EItem> itemsOrdered = new ArrayList<EItem>();
         for (EItem item : items) {

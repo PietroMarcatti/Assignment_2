@@ -6,6 +6,8 @@
 package it.unipd.mtss.business;
 
 import java.util.List;
+import java.util.Random;
+import java.time.Duration;
 import java.util.Calendar;
 
 import it.unipd.mtss.business.exception.BillException;
@@ -14,6 +16,9 @@ import it.unipd.mtss.model.EItemType;
 import it.unipd.mtss.model.User;
 
 public class RealBill implements Bill {
+    private int ordiniRegalati =0;
+    private long[] idUtenti = new long[10];
+    private Random rand = new Random();
     /*
      * (non-Javadoc)
      * 
@@ -22,8 +27,10 @@ public class RealBill implements Bill {
     @Override
     public double getOrderPrice(List<EItem> itemsOrdered, User user, 
         Calendar time) throws BillException {
+        int hours = time.get(Calendar.HOUR_OF_DAY);
         int[] numeroItem = new int[4];
         double prezzoTotaleProvvisorio = 0;
+        rand.setSeed(0);
         
         for (EItem item : itemsOrdered){
             switch(item.getEItemType()){
@@ -54,6 +61,14 @@ public class RealBill implements Bill {
         }
         if(prezzoTotaleProvvisorio<10){
             prezzoTotaleProvvisorio+=2;
+        }
+        if(hours >=18 && hours <=19 ){
+            if(regaloPerMinorenne(user)){
+                prezzoTotaleProvvisorio = 0;
+            }
+        }else{
+            idUtenti = new long[10];
+            ordiniRegalati = 0;
         }
         
         return prezzoTotaleProvvisorio;
@@ -91,6 +106,30 @@ public class RealBill implements Bill {
             }
         }
         return prezzoMinore;
+    }
+
+    private Boolean regaloPerMinorenne(User user){
+        
+        Calendar now = Calendar.getInstance();
+        long diff= Duration
+        .between(user.getDataNascita().toInstant(), now.toInstant())
+        .toDays()/365;
+        int numero =rand.nextInt(2);
+        if(ordiniRegalati < 10 && numero==1 && diff<18){
+            Boolean trovato = false;
+            for(long id : idUtenti){
+                if(id == user.getId()){
+                    trovato = true;
+                } 
+            }
+            if(!trovato){
+                idUtenti[ordiniRegalati] = user.getId();
+                ordiniRegalati +=1;
+                return true;
+            }
+            
+        }
+        return false;
     }
 
 }
