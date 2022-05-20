@@ -10,6 +10,7 @@ import java.util.Calendar;
 
 import it.unipd.mtss.business.exception.BillException;
 import it.unipd.mtss.model.EItem;
+import it.unipd.mtss.model.EItemType;
 import it.unipd.mtss.model.User;
 
 public class RealBill implements Bill {
@@ -35,7 +36,23 @@ public class RealBill implements Bill {
             prezzoTotaleProvvisorio+=item.getPrice();
         }
 
+        if(numeroItem[1]>5){
+            prezzoTotaleProvvisorio -= scontoProcessoreMenoCaro(itemsOrdered);
+        }
+
         return prezzoTotaleProvvisorio;
+    }
+
+    private double scontoProcessoreMenoCaro(List<EItem> itemsOrdered){
+        double prezzoMinore = Double.POSITIVE_INFINITY;
+        for (EItem item : itemsOrdered){
+            if(item.getEItemType()==EItemType.PROCESSOR
+            && item.getPrice()<prezzoMinore){
+                prezzoMinore = item.getPrice();
+            }
+        }
+        System.out.println(prezzoMinore);
+        return 0.5*prezzoMinore;
     }
 
 }

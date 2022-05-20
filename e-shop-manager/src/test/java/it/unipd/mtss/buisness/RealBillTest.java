@@ -54,6 +54,25 @@ public class RealBillTest {
         assertEquals(expected, actual, 0.01);
     }
 
+    @Test
+    public void getOrderPrice_ScontoProcessoreMenoCaroTest() throws BillException{
+        EItem[] items = {
+            new RealEItem("Prodotto", EItemType.MOTHERBOARD, 12.3),
+            new RealEItem("Prodotto", EItemType.PROCESSOR, 6.4),
+            new RealEItem("Prodotto", EItemType.MOTHERBOARD, 18.3),
+            new RealEItem("Prodotto", EItemType.PROCESSOR, 43.3),
+            new RealEItem("Prodotto", EItemType.PROCESSOR, 65.3),
+            new RealEItem("Prodotto", EItemType.PROCESSOR, 89.3),
+            new RealEItem("Prodotto", EItemType.PROCESSOR, 120.3),
+            new RealEItem("Prodotto", EItemType.PROCESSOR, 22.3),
+        };
+        List<EItem> itemsOrdered = createEItemList(items);
+        double expected = 374.3;
+        double actual = bill.getOrderPrice(itemsOrdered, user, Calendar.getInstance());
+
+        assertEquals(expected, actual, 0.01);
+    }
+
     private List<EItem> createEItemList(EItem[] items) {
         List<EItem> itemsOrdered = new ArrayList<EItem>();
         for (EItem item : items) {
