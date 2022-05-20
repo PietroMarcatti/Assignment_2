@@ -49,6 +49,9 @@ public class RealBill implements Bill {
         if(prezzoTotaleProvvisorio>1000){
             prezzoTotaleProvvisorio*=0.9;
         }
+        if(itemsOrdered.size() > 30){
+            throw new BillException("Ordine con più di 30 elementi");
+        }
         
         return prezzoTotaleProvvisorio;
     }

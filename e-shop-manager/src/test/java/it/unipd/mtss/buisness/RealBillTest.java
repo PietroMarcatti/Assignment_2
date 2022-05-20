@@ -135,6 +135,55 @@ public class RealBillTest {
         assertEquals(expected, actual, 0.001);
     }
 
+    @Test(expected = BillException.class)
+    public void getOrderPrice_numeroDiProdottiEccessivoTest() throws BillException{
+        EItem[] items = {
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 10.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 10.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 10.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+        };
+        
+        List<EItem> itemsOrdered = createEItemList(items);
+        @SuppressWarnings("unused")
+        double actual = bill.getOrderPrice(itemsOrdered, user, Calendar.getInstance());
+    }
+
     private List<EItem> createEItemList(EItem[] items) {
         List<EItem> itemsOrdered = new ArrayList<EItem>();
         for (EItem item : items) {
