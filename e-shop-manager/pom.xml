@@ -28,6 +28,28 @@
   </dependencies>
 
   <build>
+    <plugins>
+      <!-- PARTE DI CHECKSTYLE-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.1.2</version>
+        <configuration>
+          <failsOnError>true</failsOnError>
+          <configLocation>checkstyle.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+              <goals>
+                <goal>checkstyle</goal>
+              </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- FINE PARTE DI CHECKSTYLE -->
+    </plugins>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
