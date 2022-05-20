@@ -98,6 +98,30 @@ public class RealBillTest {
         assertEquals(expected, actual, 0.001);
     }
 
+    @Test
+    public void getOrderPrice_regaloMouseTastieraMenoCaroTest() throws BillException{
+        EItem[] items = {
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 10.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+            new RealEItem("Prodotto", EItemType.MOUSE, 20.0),
+        };
+        
+        List<EItem> itemsOrdered = createEItemList(items);
+        double expected = 220.0;
+        double actual = bill.getOrderPrice(itemsOrdered, user, Calendar.getInstance());
+
+        assertEquals(expected, actual, 0.001);
+    }
+
     private List<EItem> createEItemList(EItem[] items) {
         List<EItem> itemsOrdered = new ArrayList<EItem>();
         for (EItem item : items) {
