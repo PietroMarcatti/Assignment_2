@@ -1,0 +1,15 @@
+////////////////////////////////////////////////////////////////////
+// Pietro Marcatti 1226283
+// Davide Spada 1220539
+////////////////////////////////////////////////////////////////////
+
+package it.unipd.mtss.model;
+
+public interface EItem {
+
+    String getName();
+
+    EItemType getEItemType();
+
+    Double getPrice();
+}
