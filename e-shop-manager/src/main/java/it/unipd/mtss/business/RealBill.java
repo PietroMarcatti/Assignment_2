@@ -46,6 +46,10 @@ public class RealBill implements Bill {
             prezzoTotaleProvvisorio -= 
             regaloMouseTastieraMenoCaro(itemsOrdered);
         }
+        if(prezzoTotaleProvvisorio>1000){
+            prezzoTotaleProvvisorio*=0.9;
+        }
+        
         return prezzoTotaleProvvisorio;
     }
 
@@ -57,7 +61,6 @@ public class RealBill implements Bill {
                 prezzoMinore = item.getPrice();
             }
         }
-        System.out.println(prezzoMinore);
         return 0.5*prezzoMinore;
     }
     

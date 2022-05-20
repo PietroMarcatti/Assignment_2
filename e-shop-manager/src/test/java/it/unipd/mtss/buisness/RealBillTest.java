@@ -122,6 +122,19 @@ public class RealBillTest {
         assertEquals(expected, actual, 0.001);
     }
 
+    @Test
+    public void getOrderPrice_scontoOrdineSopraMilleTest() throws BillException{
+        EItem[] items = {
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 1200.0),
+        };
+        
+        List<EItem> itemsOrdered = createEItemList(items);
+        double expected = 1080;
+        double actual = bill.getOrderPrice(itemsOrdered, user, Calendar.getInstance());
+
+        assertEquals(expected, actual, 0.001);
+    }
+
     private List<EItem> createEItemList(EItem[] items) {
         List<EItem> itemsOrdered = new ArrayList<EItem>();
         for (EItem item : items) {
