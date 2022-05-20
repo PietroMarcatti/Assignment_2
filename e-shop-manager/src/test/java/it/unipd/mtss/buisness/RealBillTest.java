@@ -184,6 +184,19 @@ public class RealBillTest {
         double actual = bill.getOrderPrice(itemsOrdered, user, Calendar.getInstance());
     }
 
+    @Test
+    public void getOrderPrice_prezzoOrdineTroppoBassoTest() throws BillException{
+        EItem[] items = {
+            new RealEItem("Prodotto", EItemType.KEYBOARD, 8.0),
+        };
+
+        List<EItem> itemsOrdered = createEItemList(items);
+        double expected = 10;
+        double actual = bill.getOrderPrice(itemsOrdered, user, Calendar.getInstance());
+
+        assertEquals(expected, actual, 0.001);
+    }
+
     private List<EItem> createEItemList(EItem[] items) {
         List<EItem> itemsOrdered = new ArrayList<EItem>();
         for (EItem item : items) {
